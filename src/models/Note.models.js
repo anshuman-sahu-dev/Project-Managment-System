@@ -10,7 +10,6 @@ const projectNoteSchema = new Schema(
     task: {
       type: Schema.Types.ObjectId,
       ref: "Task",
-      required: true,
     },
     title: {
       type: String,
