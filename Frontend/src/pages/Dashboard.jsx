@@ -16,6 +16,9 @@ export default function Dashboard() {
         { id: 1, name: 'Website Redesign', description: 'Revamp the corporate website with new branding.', members: 4, status: 'Active' },
         { id: 2, name: 'Mobile App V2', description: 'New features for the iOS and Android apps.', members: 8, status: 'Planning' },
         { id: 3, name: 'Marketing Campaign Q4', description: 'End of year promotional campaign assets.', members: 3, status: 'Active' },
+        { id: 4, name: 'Database Migration', description: 'Migrate legacy SQL database to the new NoSQL infrastructure.', members: 5, status: 'Planning' },
+        { id: 5, name: 'Security Audit Q3', description: 'Comprehensive security review of all external-facing APIs.', members: 2, status: 'Active' },
+        { id: 6, name: 'Employee Onboarding Portal', description: 'Internal tool to streamline the onboarding process for new hires.', members: 6, status: 'Active' },
       ]);
       setIsLoading(false);
     }, 600);
@@ -30,13 +33,13 @@ export default function Dashboard() {
         </div>
         
         <div className="nav-actions">
-          <div className="user-profile">
+          <Link to="/profile" className="user-profile" style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="avatar">{user?.name?.charAt(0)}</div>
             <div className="user-info">
               <span className="user-name">{user?.name}</span>
               <span className="user-role">{user?.role}</span>
             </div>
-          </div>
+          </Link>
           <button className="btn-icon" onClick={logout} title="Logout">
             <LogOut size={20} />
           </button>

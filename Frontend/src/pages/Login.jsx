@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Mail, Lock } from 'lucide-react';
+import { LogIn, User, Lock } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import './Login.css';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading, error } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    await login(employeeId, password);
     // Zustand store will handle redirection if we listen to isAuthenticated in a protected route wrapper,
     // or we can redirect directly here.
     navigate('/');
@@ -33,15 +33,15 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
-            <label>Email Address</label>
+            <label>Employee ID</label>
             <div className="input-wrapper">
-              <Mail className="input-icon" size={20} />
+              <User className="input-icon" size={20} />
               <input
-                type="email"
+                type="text"
                 className="input-field"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="EMP-001"
+                value={employeeId}
+                onChange={(e) => setEmployeeId(e.target.value)}
                 required
               />
             </div>
@@ -67,7 +67,7 @@ export default function Login() {
               <input type="checkbox" />
               <span>Remember me</span>
             </label>
-            <a href="#" className="forgot-password">Forgot Password?</a>
+            <Link to="/forgot-password" className="forgot-password">Forgot Password?</Link>
           </div>
 
           <button type="submit" className="btn-primary login-btn" disabled={isLoading}>

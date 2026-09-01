@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import useAuthStore from './store/authStore';
 import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import AdminProfile from './pages/AdminProfile';
 
 import Dashboard from './pages/Dashboard';
 import ProjectDetails from './pages/ProjectDetails';
@@ -36,14 +40,23 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        {/* Placeholder for Register */}
-        <Route path="/register" element={<div style={{color:'white', padding:'2rem'}}>Register Page (Coming Soon)</div>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         
         <Route 
           path="/" 
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <AdminProfile />
             </ProtectedRoute>
           } 
         />

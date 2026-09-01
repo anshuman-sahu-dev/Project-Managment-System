@@ -7,16 +7,16 @@ const useAuthStore = create((set) => ({
   isLoading: false,
   error: null,
 
-  login: async (email, password) => {
+  login: async (employeeId, password) => {
     set({ isLoading: true, error: null });
     try {
       // Mocking the backend response since the backend might not be fully functional yet
-      // const response = await api.post('/auth/login', { email, password });
+      // const response = await api.post('/auth/login', { employeeId, password });
       // const { user, accessToken } = response.data.data;
       
       // Mock behavior
       setTimeout(() => {
-        const user = { id: 1, name: 'Admin User', email, role: 'admin' };
+        const user = { id: 1, name: 'Admin User', employeeId, role: 'admin' };
         const accessToken = 'mock-jwt-token';
         
         localStorage.setItem('token', accessToken);
@@ -26,6 +26,30 @@ const useAuthStore = create((set) => ({
     } catch (error) {
       set({ 
         error: error.response?.data?.message || 'Login failed', 
+        isLoading: false 
+      });
+    }
+  },
+
+  register: async (name, employeeId, email, password) => {
+    set({ isLoading: true, error: null });
+    try {
+      // Mocking the backend response
+      // const response = await api.post('/auth/register', { name, employeeId, email, password });
+      // const { user, accessToken } = response.data.data;
+      
+      // Mock behavior
+      setTimeout(() => {
+        const user = { id: 2, name, employeeId, email, role: 'member' };
+        const accessToken = 'mock-jwt-token-new';
+        
+        localStorage.setItem('token', accessToken);
+        set({ user, isAuthenticated: true, isLoading: false });
+      }, 800);
+      
+    } catch (error) {
+      set({ 
+        error: error.response?.data?.message || 'Registration failed', 
         isLoading: false 
       });
     }
