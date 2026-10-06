@@ -13,7 +13,19 @@ app.use(cookieParser());
 //cors Configurations
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:5173",
+    origin: (origin, callback) => {
+      const allowedOrigins = (
+        process.env.CORS_ORIGIN || "http://localhost:5173"
+      )
+        .split(",")
+        .map((url) => url.trim());
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -33,8 +45,8 @@ app.use("/api/v1/projects", projectRouter);
 app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/notes", noteRouter);
 
-app.get("/", (req, res) =>{
-  res.send("Welcome to Backend Project.")
+app.get("/", (req, res) => {
+  res.send("Welcome to Backend Project.");
 });
 
 import { ApiError } from "./utils/api-error.js";
@@ -45,13 +57,13 @@ app.use((err, req, res, next) => {
       success: err.success,
       message: err.message,
       errors: err.errors,
-      data: err.data
+      data: err.data,
     });
   }
   return res.status(err.status || 500).json({
     success: false,
     message: err.message || "Internal Server Error",
-    stack: err.stack
+    stack: err.stack,
   });
 });
 
