@@ -46,7 +46,7 @@ app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/notes", noteRouter);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Backend Project.");
+  res.send("Welcome to Project Management Backend.");
 });
 
 import { ApiError } from "./utils/api-error.js";
